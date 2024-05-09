@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Hello</title>
+</head>
+
+<body>
+  <div id="timer">
+    <span id="days"></span> 天
+    <span id="hours"></span> 小时
+    <span id="minutes"></span> 分钟
+    <span id="seconds"></span> 秒
+  </div>
+
+  <script>
+    // 设置目标日期时间为2019年8月22日下午6点（中国时区时间CCT）
+    // UTC = CCT - 8
+    // 这里设置的是UTC时间以避免以Date默认将时间转换为当前设备时区时间带来的时区不同步问题
+    var targetDate = new Date(Date.UTC(2019, 7, 22, 18, 0, 0)).getTime();
+
+    // 获取当前设备的日期和时间（时区由当前设备决定）
+    var currentDate = new Date();
+
+    // 计算时间差（以毫秒为单位）
+    var timeDifference = currentDate.getTime() - targetDate;
+
+    // 将时间差转换为天、小时、分钟和秒
+    var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((timeDifference % (1000 * 60 * 60) / (1000 * 60)));
+    var seconds = Math.floor((timeDifference % (1000 * 60) / 1000));
+
+    // 更新计时器的内容
+    document.getElementById("days").innerHTML = days;
+    document.getElementById("hours").innerHTML = hours;
+    document.getElementById("minutes").innerHTML = minutes;
+    document.getElementById("seconds").innerHTML = seconds;
+
+    // 实时更新计时器
+    setInterval(function () {
+      var currentDate = new Date();
+
+      var timeDifference = currentDate.getTime() - targetDate;
+
+      var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((timeDifference % (1000 * 60 * 60) / (1000 * 60)));
+      var seconds = Math.floor((timeDifference % (1000 * 60) / 1000));
+
+      document.getElementById("days").innerHTML = days;
+      document.getElementById("hours").innerHTML = hours;
+      document.getElementById("minutes").innerHTML = minutes;
+      document.getElementById("seconds").innerHTML = seconds;
+    }, 1000);
+  </script>
+</body>
+
+</html>
